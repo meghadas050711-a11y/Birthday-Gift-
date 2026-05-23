@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Sister ✨</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    min-height:100vh;
+    overflow-x:hidden;
+    font-family:'Poppins',sans-serif;
+    background:linear-gradient(135deg,#003135,#024950,#0FA4AF);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+    position:relative;
+}
+
+/* Background Glow */
+body::before{
+    content:'';
+    position:absolute;
+    width:400px;
+    height:400px;
+    background:#AFDDE5;
+    border-radius:50%;
+    filter:blur(140px);
+    top:-120px;
+    left:-120px;
+    opacity:.18;
+}
+
+body::after{
+    content:'';
+    position:absolute;
+    width:350px;
+    height:350px;
+    background:#964734;
+    border-radius:50%;
+    filter:blur(130px);
+    bottom:-120px;
+    right:-120px;
+    opacity:.20;
+}
+
+/* Floating Hearts */
+.heart{
+    position:absolute;
+    color:#AFDDE5;
+    animation:float 8s linear infinite;
+    opacity:.5;
+    font-size:18px;
+}
+
+@keyframes float{
+    0%{
+        transform:translateY(100vh) rotate(0);
+        opacity:0;
+    }
+    20%{opacity:.6;}
+    100%{
+        transform:translateY(-120px) rotate(360deg);
+        opacity:0;
+    }
+}
+
+.card{
+    position:relative;
+    z-index:10;
+    width:100%;
+    max-width:750px;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(18px);
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:28px;
+    padding:35px 28px;
+    box-shadow:0 15px 35px rgba(0,0,0,.35);
+    text-align:center;
+    animation:fadeIn 1.8s ease;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(40px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+h1{
+    font-family:'Dancing Script',cursive;
+    color:#AFDDE5;
+    font-size:3rem;
+    margin-bottom:12px;
+    text-shadow:0 0 20px rgba(175,221,229,.4);
+}
+
+.line{
+    width:90px;
+    height:4px;
+    margin:12px auto 25px;
+    background:#0FA4AF;
+    border-radius:10px;
+}
+
+.message{
+    color:#f5f5f5;
+    font-size:1rem;
+    line-height:1.95;
+    font-weight:300;
+}
+
+.music-btn{
+    margin-top:28px;
+    background:#964734;
+    color:white;
+    border:none;
+    padding:12px 26px;
+    border-radius:30px;
+    font-size:15px;
+    cursor:pointer;
+    transition:.4s;
+    box-shadow:0 8px 20px rgba(0,0,0,.25);
+}
+
+.music-btn:hover{
+    background:#0FA4AF;
+    transform:translateY(-3px);
+}
+
+.footer{
+    margin-top:25px;
+    color:#AFDDE5;
+    font-size:.95rem;
+    opacity:.85;
+}
+
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    pointer-events:none;
+    z-index:1;
+}
+
+@media(max-width:600px){
+    h1{
+        font-size:2.4rem;
+    }
+
+    .card{
+        padding:28px 20px;
+    }
+
+    .message{
+        font-size:.95rem;
+        line-height:1.8;
+    }
+}
+</style>
+</head>
+<body>
+
+<canvas id="confetti"></canvas>
+
+<!-- Floating Hearts -->
+<div class="heart" style="left:10%;animation-delay:0s;">❤</div>
+<div class="heart" style="left:25%;animation-delay:2s;">❤</div>
+<div class="heart" style="left:50%;animation-delay:4s;">❤</div>
+<div class="heart" style="left:70%;animation-delay:1s;">❤</div>
+<div class="heart" style="left:88%;animation-delay:3s;">❤</div>
+
+<div class="card">
+
+<h1>Happy Birthday ✨</h1>
+<div class="line"></div>
+
+<div class="message">
+A sister is not just family — she is a piece of home that walks beside us through every season of life. Today is your special day, and I just want you to know how deeply loved and appreciated you are. You are the person who understands silent tears, celebrates tiny victories, and fills ordinary days with warmth and comfort.  
+
+Life may change, people may come and go, and time may keep moving fast, but the bond of sisterhood carries a softness that never fades. Thank you for being my safe place, my secret keeper, my protector, and sometimes even my strongest motivation.  
+
+I hope this birthday brings you endless smiles, peaceful moments, beautiful memories, and all the happiness your heart deserves. May you always shine with confidence, kindness, and joy because the world becomes brighter with your presence in it.  
+
+No matter how much we grow, a part of me will always treasure the comfort of having you by my side. Happy Birthday, my beautiful sister 💖
+</div>
+
+<button class="music-btn" onclick="toggleMusic()">
+🎵 Play Dreamy Music
+</button>
+
+<div class="footer">
+Made with love & warm wishes ✨
+</div>
+
+<audio id="music" loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7f9db4f2b0.mp3?filename=lofi-study-112191.mp3" type="audio/mpeg">
+</audio>
+
+</div>
+
+<script>
+/* Music */
+const music = document.getElementById("music");
+const btn = document.querySelector(".music-btn");
+
+function toggleMusic(){
+    if(music.paused){
+        music.play();
+        btn.innerHTML="⏸ Pause Music";
+    } else{
+        music.pause();
+        btn.innerHTML="🎵 Play Dreamy Music";
+    }
+}
+
+/* Smooth Confetti */
+const canvas = document.getElementById('confetti');
+const ctx = canvas.getContext('2d');
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const confetti = [];
+
+for(let i=0;i<150;i++){
+    confetti.push({
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height,
+        r:Math.random()*6+2,
+        d:Math.random()*150,
+        color:["#AFDDE5","#0FA4AF","#964734","#ffffff"][Math.floor(Math.random()*4)],
+        tilt:Math.random()*10-10
+    });
+}
+
+function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    confetti.forEach(c=>{
+        ctx.beginPath();
+        ctx.fillStyle=c.color;
+        ctx.arc(c.x,c.y,c.r,0,Math.PI*2);
+        ctx.fill();
+
+        c.y += Math.cos(c.d)+1.5;
+        c.x += Math.sin(c.d)*0.8;
+!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday 🎉</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center px-4">
+  <div class="bg-white shadow-2xl rounded-2xl p-6 sm:p-8 max-w-md w-full text-center">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-pink-500 mb-4">🎂 Happy Birthday! 🎂</h1>
+    <p class="text-base sm:text-lg text-gray-700 mb-6">
+      Wishing you a day filled with love, laughter, and everything that makes you smile.
+      May this year bring you happiness, success, and unforgettable memories.
+    </p>
+
+    <div class="text-5xl sm:text-6xl mb-6">🎉🎈🎁</div>
+
+    <p class="text-gray-600 italic text-sm sm:text-base">
+      "Count your life by smiles, not tears. Count your age by friends, not years."
+    </p>
+
+    <button onclick="celebrate()" class="mt-6 px-6 py-3 bg-pink-500 text-white rounded-xl shadow hover:bg-pink-600 transition w-full sm:w-auto">
+      Click for a Surprise 🎊
+    </button>
+
+    <p id="surprise" class="mt-4 text-lg sm:text-xl font-semibold text-purple-600 hidden">
+      You are amazing! Have the best birthday ever! 💖
+    </p>
+  </div>
+
+  <script>
+    function celebrate() {
+      document.getElementById('surprise').classList.remove('hidden');
+
+      confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+
+      setTimeout(() => {
+        confetti({ particleCount: 100, spread: 120, origin: { x: 0.1 } });
+        confetti({ particleCount: 100, spread: 120, origin: { x: 0.9 } });
+      }, 300);
+    }
+  </script>
+</body>
+</html>
+
+
+        if(c.y>canvas.height){
+            c.y=-10;
+            c.x=Math.random()*canvas.width;
+        }
+    });
+
+    requestAnimationFrame(draw);
+}
+draw();
+
+window.addEventListener('resize',()=>{
+    canvas.width=window.innerWidth;
+    canvas.height=window.innerHeight;
+});
+</script>
+
+</body>
+</html>
